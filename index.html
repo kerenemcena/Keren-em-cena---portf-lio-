@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keren Emcena — storymaker</title>
+<meta name="description" content="Keren Emcena, storymaker: stories, reels e cobertura de eventos, festas, casamentos, feiras e inaugurações.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15132B;
+    --ink-2:#1D1A38;
+    --card:#241F46;
+    --card-2:#2B2552;
+    --line: rgba(245,242,255,0.12);
+    --coral:#FF4D6A;
+    --yellow:#FFD23F;
+    --mint:#3DDC97;
+    --text:#F5F2FF;
+    --muted:#B7AFD9;
+    --radius-lg: 28px;
+    --radius-md: 18px;
+    --radius-sm: 12px;
+    --container: 1180px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text);
+    font-family:'Plus Jakarta Sans', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,video{max-width:100%;display:block;}
+  a{color:inherit;}
+  button{font-family:inherit;}
+
+  .display{font-family:'Lilita One', cursive; letter-spacing:0.01em;}
+  .mono{font-family:'Space Mono', monospace; letter-spacing:0.04em;}
+
+  .wrap{max-width:var(--container); margin:0 auto; padding:0 24px;}
+
+  /* subtle film-grain / noise + glow backdrop */
+  body::before{
+    content:"";
+    position:fixed; inset:0; z-index:-2;
+    background:
+      radial-gradient(circle at 18% 8%, rgba(255,77,106,0.16), transparent 40%),
+      radial-gradient(circle at 85% 18%, rgba(61,220,151,0.13), transparent 45%),
+      radial-gradient(circle at 60% 90%, rgba(255,210,63,0.10), transparent 40%);
+  }
+
+  a:focus-visible, button:focus-visible{
+    outline:3px solid var(--yellow);
+    outline-offset:3px;
+    border-radius:6px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.topnav{
+    position:sticky; top:0; z-index:40;
+    background:rgba(21,19,43,0.78);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .topnav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 24px;
+  }
+  .brand{
+    display:flex; align-items:baseline; gap:8px;
+    text-decoration:none;
+  }
+  .brand-name{font-family:'Lilita One',cursive; font-size:1.25rem; color:var(--text);}
+  .brand-tag{font-family:'Space Mono',monospace; font-size:0.62rem; color:var(--coral); text-transform:uppercase;}
+  nav.links{display:flex; gap:22px; font-size:0.92rem; font-weight:600;}
+  nav.links a{text-decoration:none; color:var(--muted); transition:color .2s;}
+  nav.links a:hover{color:var(--text);}
+  .nav-cta{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--mint); color:var(--ink); font-weight:700;
+    padding:9px 16px; border-radius:999px; text-decoration:none; font-size:0.85rem;
+    white-space:nowrap;
+  }
+  @media (max-width:760px){
+    nav.links{display:none;}
+  }
+
+  /* ---------- BUTTONS ---------- */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    padding:15px 28px; border-radius:999px; font-weight:700; font-size:1rem;
+    text-decoration:none; border:2px solid transparent; cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--coral); color:var(--ink); box-shadow:0 10px 24px -10px rgba(255,77,106,0.6);}
+  .btn-outline{background:transparent; color:var(--text); border-color:rgba(245,242,255,0.35);}
+  .btn-outline:hover{border-color:var(--mint);}
+
+  .eyebrow{
+    font-family:'Space Mono',monospace; text-transform:uppercase; letter-spacing:0.18em;
+    font-size:0.74rem; color:var(--coral); display:flex; align-items:center; gap:10px; margin-bottom:14px;
+  }
+  .eyebrow::before{content:""; width:18px; height:2px; background:var(--coral); display:inline-block;}
+
+  section{padding:88px 0;}
+  @media (max-width:760px){ section{padding:60px 0;} }
+
+  h2.section-title{
+    font-family:'Lilita One', cursive; font-size:clamp(1.8rem, 4vw, 2.6rem);
+    margin:0 0 10px; color:var(--text);
+  }
+  p.section-sub{color:var(--muted); max-width:520px; margin:0 0 40px; font-size:1.02rem;}
+
+  /* ---------- HERO ---------- */
+  .hero{padding-top:56px;}
+  .hero-grid{
+    display:grid; grid-template-columns: 320px 1fr; gap:56px; align-items:center;
+  }
+  @media (max-width:880px){
+    .hero-grid{grid-template-columns:1fr; gap:36px; text-align:center;}
+  }
+  .hero-copy h1{
+    font-family:'Lilita One', cursive;
+    font-size:clamp(2.4rem, 5.6vw, 4rem);
+    margin:0 0 18px; line-height:1.02;
+  }
+  .hero-copy h1 span{color:var(--coral);}
+  .hero-copy p.tagline{
+    font-size:1.18rem; color:var(--muted); max-width:480px; margin:0 0 32px;
+  }
+  @media (max-width:880px){ .hero-copy p.tagline{margin-inline:auto;} }
+  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap;}
+  @media (max-width:880px){ .hero-ctas{justify-content:center;} }
+  .hero-handle{
+    margin-top:22px; font-family:'Space Mono',monospace; font-size:0.85rem; color:var(--muted);
+  }
+
+  /* ---------- PHONE / STORY PLAYER (signature element) ---------- */
+  .phone-shell{
+    position:relative; width:min(78vw, 290px); margin:0 auto;
+    aspect-ratio:9/19.5; border-radius:42px; padding:10px;
+    background:linear-gradient(160deg, #2c2655, #0d0b1c);
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05) inset;
+  }
+  .phone-screen{
+    position:relative; width:100%; height:100%; border-radius:34px; overflow:hidden;
+    background:#000;
+  }
+  .phone-screen video{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  }
+  .phone-statusbar{
+    position:absolute; top:14px; left:18px; right:18px; z-index:3;
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'Space Mono',monospace; font-size:0.62rem; color:rgba(255,255,255,0.85);
+  }
+  .phone-statusbar .dots{display:flex; gap:3px;}
+  .phone-statusbar .dots span{width:3px; height:3px; border-radius:50%; background:currentColor; display:block;}
+  .story-bars{
+    position:absolute; top:30px; left:14px; right:14px; z-index:3;
+    display:flex; gap:5px;
+  }
+  .story-bars i{
+    flex:1; height:3px; border-radius:3px; background:rgba(255,255,255,0.28); overflow:hidden; position:relative;
+  }
+  .story-bars i span{
+    position:absolute; left:0; top:0; bottom:0; width:0%; background:#fff; border-radius:3px;
+  }
+  .story-bars i.done span{width:100%;}
+  .phone-tap-zones{position:absolute; inset:0; display:flex; z-index:5;}
+  .phone-tap-zones div{flex:1; cursor:pointer;}
+  .phone-caption{
+    position:absolute; bottom:16px; left:16px; right:50px; z-index:3;
+    font-size:0.72rem; color:rgba(255,255,255,0.85); font-weight:600;
+  }
+  .phone-mute{
+    position:absolute; bottom:14px; right:14px; z-index:6;
+    width:34px; height:34px; border-radius:50%; border:1px solid rgba(255,255,255,0.4);
+    background:rgba(0,0,0,0.35); color:#fff; display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+  }
+  .phone-gloss{
+    position:absolute; inset:0; border-radius:34px; pointer-events:none; z-index:4;
+    background:linear-gradient(180deg, rgba(0,0,0,0.35), transparent 22%, transparent 78%, rgba(0,0,0,0.45));
+  }
+
+  /* ---------- HIGHLIGHTS / SERVICES ---------- */
+  .services-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;
+  }
+  @media (max-width:880px){ .services-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .services-grid{grid-template-columns:1fr;} }
+  .service-card{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius-md);
+    padding:26px 22px; transition:border-color .2s, transform .2s;
+  }
+  .service-card:hover{border-color:var(--coral); transform:translateY(-4px);}
+  .badge{
+    width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    margin-bottom:18px; background:var(--ink-2); border:1px solid var(--line);
+  }
+  .badge svg{width:26px; height:26px;}
+  .service-card h3{font-size:1.08rem; margin:0 0 8px; font-weight:800;}
+  .service-card p{margin:0; color:var(--muted); font-size:0.92rem;}
+
+  /* ---------- REELS / STORIES ROW ---------- */
+  .reel-row{
+    display:flex; gap:18px; overflow-x:auto; padding:6px 6px 18px;
+    scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
+  }
+  .reel-row::-webkit-scrollbar{height:6px;}
+  .reel-row::-webkit-scrollbar-thumb{background:var(--card-2); border-radius:6px;}
+  .reel-card{
+    position:relative; flex:0 0 auto; width:200px; aspect-ratio:9/16;
+    border-radius:22px; overflow:hidden; scroll-snap-align:start;
+    border:3px solid var(--ink-2); background:#000; cursor:pointer;
+  }
+  .reel-card img{width:100%; height:100%; object-fit:cover;}
+  .reel-card .play-overlay{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.55));
+  }
+  .play-btn{
+    width:46px; height:46px; border-radius:50%; background:rgba(255,255,255,0.92);
+    display:flex; align-items:center; justify-content:center; box-shadow:0 6px 16px rgba(0,0,0,0.4);
+  }
+  .play-btn svg{width:18px; height:18px; fill:var(--ink); margin-left:2px;}
+  .duration-chip{
+    position:absolute; bottom:10px; left:10px; z-index:2;
+    font-family:'Space Mono',monospace; font-size:0.68rem; color:#fff;
+    background:rgba(0,0,0,0.45); padding:3px 8px; border-radius:999px;
+  }
+
+  /* ---------- COVERAGE / VIEWFINDER GRID ---------- */
+  .cover-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;
+  }
+  @media (max-width:880px){ .cover-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .cover-grid{grid-template-columns:1fr;} }
+  .cover-card{
+    position:relative; aspect-ratio:16/9; border-radius:var(--radius-md); overflow:hidden;
+    background:#000; cursor:pointer; border:1px solid var(--line);
+  }
+  .cover-card img{width:100%; height:100%; object-fit:cover; transition:transform .4s;}
+  .cover-card:hover img{transform:scale(1.04);}
+  .cover-card .play-overlay{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.45));
+  }
+  .vf-corner{position:absolute; width:18px; height:18px; border-color:var(--mint); z-index:2;}
+  .vf-tl{top:10px; left:10px; border-top:2px solid var(--mint); border-left:2px solid var(--mint);}
+  .vf-tr{top:10px; right:10px; border-top:2px solid var(--mint); border-right:2px solid var(--mint);}
+  .vf-bl{bottom:10px; left:10px; border-bottom:2px solid var(--mint); border-left:2px solid var(--mint);}
+  .vf-br{bottom:10px; right:10px; border-bottom:2px solid var(--mint); border-right:2px solid var(--mint);}
+  .rec-tag{
+    position:absolute; top:10px; left:34px; z-index:2; display:flex; align-items:center; gap:6px;
+    font-family:'Space Mono',monospace; font-size:0.66rem; color:#fff; letter-spacing:0.08em;
+  }
+  .rec-dot{width:7px; height:7px; border-radius:50%; background:var(--coral); animation:blink 1.4s infinite;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.25;}}
+  .cover-card .duration-chip{right:10px; left:auto; bottom:10px;}
+
+  .meta-probe{display:none;}
+
+  /* ---------- CTA BAND ---------- */
+  .cta-band{
+    background:var(--coral); color:var(--ink); border-radius:32px;
+    padding:64px 40px; text-align:center; margin:0 24px;
+  }
+  .cta-band h2{font-family:'Lilita One',cursive; font-size:clamp(1.8rem,4vw,2.8rem); margin:0 0 14px;}
+  .cta-band p{font-size:1.08rem; max-width:480px; margin:0 auto 30px; opacity:0.85;}
+  .cta-band .btn-primary{background:var(--ink); color:#fff; box-shadow:none;}
+  .cta-band .btn-outline{border-color:rgba(21,19,43,0.4); color:var(--ink);}
+
+  footer{padding:48px 0 36px; border-top:1px solid var(--line); margin-top:40px;}
+  .footer-inner{display:flex; flex-wrap:wrap; gap:14px; justify-content:space-between; align-items:center;}
+  .footer-inner .brand-name{font-size:1.05rem;}
+  footer .muted{color:var(--muted); font-size:0.85rem;}
+
+  /* ---------- LIGHTBOX ---------- */
+  .lightbox{
+    position:fixed; inset:0; z-index:100; display:none; align-items:center; justify-content:center;
+    background:rgba(10,9,20,0.88); backdrop-filter:blur(6px); padding:24px;
+  }
+  .lightbox.open{display:flex;}
+  .lightbox-inner{position:relative; max-width:92vw; max-height:88vh;}
+  .lightbox video{max-width:92vw; max-height:88vh; border-radius:14px; background:#000;}
+  .lightbox-close{
+    position:absolute; top:-44px; right:0; width:36px; height:36px; border-radius:50%;
+    background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.3); color:#fff;
+    display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.1rem;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important; animation:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div class="topnav-inner wrap" style="max-width:var(--container); margin:0 auto; padding:0;">
+    <a class="brand" href="#top">
+      <span class="brand-name">Keren Emcena</span>
+      <span class="brand-tag">storymaker</span>
+    </a>
+    <nav class="links">
+      <a href="#servicos">Serviços</a>
+      <a href="#stories">Stories</a>
+      <a href="#coberturas">Coberturas</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a class="nav-cta" href="https://wa.me/5511957625556" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+
+      <div class="phone-shell">
+        <div class="phone-screen" id="heroScreen">
+          <div class="phone-gloss"></div>
+          <div class="phone-statusbar">
+            <span>21:09</span>
+            <span class="dots"><span></span><span></span><span></span></span>
+          </div>
+          <div class="story-bars" id="storyBars">
+            <i><span></span></i><i><span></span></i><i><span></span></i><i><span></span></i>
+          </div>
+          <video id="heroVideo" muted playsinline preload="auto"></video>
+          <div class="phone-tap-zones">
+            <div id="tapPrev" aria-label="Story anterior"></div>
+            <div id="tapNext" aria-label="Próximo story"></div>
+          </div>
+          <span class="phone-caption">@kerenemcena</span>
+          <button class="phone-mute" id="muteBtn" aria-label="Ativar som" type="button">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M3 10v4h4l5 5V5L7 10H3z"/><line id="muteSlash" x1="16" y1="9" x2="22" y2="15"/><line id="muteSlash2" x1="22" y1="9" x2="16" y2="15"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-copy">
+        <p class="eyebrow">Storymaker</p>
+        <h1>Sua história,<br>contada pra <span>não ser pulada.</span></h1>
+        <p class="tagline">Eu filmo, edito e entrego stories, reels e cobertura de eventos prontos pra postar — de festa, casamento, feira ou loja nova.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="https://wa.me/5511957625556" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+          <a class="btn btn-outline" href="https://instagram.com/kerenemcena" target="_blank" rel="noopener">@kerenemcena</a>
+        </div>
+        <p class="hero-handle">toque no story aí ao lado →</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="servicos">
+    <div class="wrap">
+      <p class="eyebrow">Onde eu entro</p>
+      <h2 class="section-title">Cada rolê tem o seu story</h2>
+      <p class="section-sub">Seis formatos, uma mesma entrega: conteúdo pronto pra ir direto pro feed ou pro story.</p>
+
+      <div class="services-grid">
+
+        <div class="service-card">
+          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#FF4D6A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><circle cx="12" cy="9.5" r="2.4" fill="#FF4D6A" stroke="none"/></svg></div>
+          <h3>Stories &amp; Reels</h3>
+          <p>Conteúdo pra rede social da sua empresa, gravado e editado pra prender atenção até o último segundo.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16l3-9 9 9-9 3-3-3z"/><circle cx="18" cy="5" r="1.1" fill="#FFD23F" stroke="none"/><circle cx="20" cy="10" r="1.1" fill="#FFD23F" stroke="none"/><circle cx="15" cy="3" r="1.1" fill="#FFD23F" stroke="none"/></svg></div>
+          <h3>Festas</h3>
+          <p>Aniversário, formatura, qualquer rolê que mereça virar lembrança — e legenda boa.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#3DDC97" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-9.3-8.8C1.4 8 3 4.8 6.3 4.8c2 0 3.6 1.3 5.7 3.6 2.1-2.3 3.7-3.6 5.7-3.6 3.3 0 4.9 3.2 3.6 6.4C19 15.6 12 20 12 20z"/></svg></div>
+          <h3>Casamentos</h3>
+          <p>Do making of ao salão cheio, registrado sem perder o instante em que todo mundo chora.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#FF4D6A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13l8-9 10 10-8 8z"/><circle cx="9" cy="9" r="1.4" fill="#FF4D6A" stroke="none"/></svg></div>
+          <h3>Feiras e exposições</h3>
+          <p>Seu estande em movimento — conteúdo pra atrair quem só passou de longe.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="6" r="2.6"/><circle cx="7" cy="18" r="2.6"/><line x1="20" y1="4" x2="9" y2="15"/><line x1="9" y1="9" x2="20" y2="20"/></svg></div>
+          <h3>Inaugurações</h3>
+          <p>O corte da fita, a primeira cliente, a loja nova de portas abertas — tudo capturado.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#3DDC97" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.6 4.6L18 8l-4.4 1.4L12 14l-1.6-4.6L6 8l4.4-1.4L12 2z"/><path d="M5 16l.8 2.2L8 19l-2.2.8L5 22l-.8-2.2L2 19l2.2-.8L5 16z"/></svg></div>
+          <h3>Edição completa</h3>
+          <p>Corte, cor, ritmo e trilha — a história chega pronta pra você só apertar postar.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STORIES & REELS -->
+  <section id="stories">
+    <div class="wrap">
+      <p class="eyebrow">Stories &amp; Reels</p>
+      <h2 class="section-title">Pra rolar o dedo e parar</h2>
+      <p class="section-sub">Conteúdo vertical, feito pra tela do celular. Toca para reproduzir com som.</p>
+    </div>
+    <div class="wrap">
+      <div class="reel-row" id="reelRow">
+        <!-- reel cards injected via data below -->
+      </div>
+    </div>
+  </section>
+
+  <!-- COBERTURAS -->
+  <section id="coberturas">
+    <div class="wrap">
+      <p class="eyebrow">Coberturas</p>
+      <h2 class="section-title">Eventos em movimento</h2>
+      <p class="section-sub">Festas, casamentos, feiras e inaugurações — registrados em vídeo, prontos pra contar a história toda.</p>
+      <div class="cover-grid" id="coverGrid">
+        <!-- cover cards injected via data below -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contato">
+    <div class="cta-band">
+      <h2>Bora gravar sua próxima história?</h2>
+      <p>Manda uma mensagem e conta o que tá rolando — eu cuido da câmera, da edição e da entrega.</p>
+      <div class="hero-ctas" style="justify-content:center;">
+        <a class="btn btn-primary" href="https://wa.me/5511957625556" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+        <a class="btn btn-outline" href="https://instagram.com/kerenemcena" target="_blank" rel="noopener">@kerenemcena</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span class="brand-name display">Keren Emcena</span>
+    <span class="muted">@kerenemcena · storymaker</span>
+    <span class="muted">© 2026</span>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Fechar">✕</button>
+    <video id="lightboxVideo" controls playsinline></video>
+  </div>
+</div>
+
+<script>
+(function(){
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var stories = [
+    {src:'story-01.mp4', poster:'story-01-poster.jpg', label:'Reel'},
+    {src:'story-02.mp4', poster:'story-02-poster.jpg', label:'Story'},
+    {src:'story-03.mp4', poster:'story-03-poster.jpg', label:'Reel'},
+    {src:'story-04.mp4', poster:'story-04-poster.jpg', label:'Story'}
+  ];
+
+  var covers = [
+    {src:'cover-01.mp4', poster:'cover-01-poster.jpg'},
+    {src:'cover-02.mp4', poster:'cover-02-poster.jpg'},
+    {src:'cover-03.mp4', poster:'cover-03-poster.jpg'},
+    {src:'cover-04.mp4', poster:'cover-04-poster.jpg'},
+    {src:'cover-05.mp4', poster:'cover-05-poster.jpg'},
+    {src:'cover-06.mp4', poster:'cover-06-poster.jpg'}
+  ];
+
+  function fmtTime(s){
+    if(!isFinite(s)) return '--:--';
+    var m = Math.floor(s/60), sec = Math.floor(s%60);
+    return m + ':' + (sec<10?'0':'')+sec;
+  }
+
+  var playIconSVG = '<svg viewBox="0 0 24 24"><path d="M5 3l16 9-16 9V3z"/></svg>';
+
+  // ---- build reel row ----
+  var reelRow = document.getElementById('reelRow');
+  stories.forEach(function(s, i){
+    var card = document.createElement('div');
+    card.className = 'reel-card';
+    card.setAttribute('data-src', s.src);
+    card.innerHTML =
+      '<img src="'+s.poster+'" alt="'+s.label+' '+(i+1)+' do portfólio de Keren Emcena" loading="lazy">'+
+      '<div class="play-overlay"><span class="play-btn">'+playIconSVG+'</span></div>'+
+      '<span class="duration-chip" data-dur>--:--</span>'+
+      '<video class="meta-probe" preload="metadata" muted src="'+s.src+'"></video>';
+    reelRow.appendChild(card);
+  });
+
+  // ---- build cover grid ----
+  var coverGrid = document.getElementById('coverGrid');
+  covers.forEach(function(c, i){
+    var card = document.createElement('div');
+    card.className = 'cover-card';
+    card.setAttribute('data-src', c.src);
+    card.innerHTML =
+      '<img src="'+c.poster+'" alt="Cobertura '+(i+1)+' do portfólio de Keren Emcena" loading="lazy">'+
+      '<div class="vf-corner vf-tl"></div><div class="vf-corner vf-tr"></div><div class="vf-corner vf-bl"></div><div class="vf-corner vf-br"></div>'+
+      '<span class="rec-tag"><span class="rec-dot"></span>REC</span>'+
+      '<div class="play-overlay"><span class="play-btn">'+playIconSVG+'</span></div>'+
+      '<span class="duration-chip" data-dur>--:--</span>'+
+      '<video class="meta-probe" preload="metadata" muted src="'+c.src+'"></video>';
+    coverGrid.appendChild(card);
+  });
+
+  // ---- duration probes ----
+  document.querySelectorAll('.meta-probe').forEach(function(v){
+    v.addEventListener('loadedmetadata', function(){
+      var chip = v.parentElement.querySelector('[data-dur]');
+      if(chip) chip.textContent = fmtTime(v.duration);
+    });
+  });
+
+  // ---- lightbox ----
+  var lightbox = document.getElementById('lightbox');
+  var lightboxVideo = document.getElementById('lightboxVideo');
+
+  function openLightbox(src){
+    lightboxVideo.src = src;
+    lightbox.classList.add('open');
+    lightboxVideo.muted = false;
+    lightboxVideo.currentTime = 0;
+    lightboxVideo.play().catch(function(){});
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    lightboxVideo.pause();
+    lightboxVideo.removeAttribute('src');
+    lightboxVideo.load();
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('.reel-card, .cover-card').forEach(function(card){
+    card.addEventListener('click', function(){
+      openLightbox(card.getAttribute('data-src'));
+    });
+  });
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function(e){ if(e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeLightbox(); });
+
+  // ---- hero story player ----
+  var heroVideo = document.getElementById('heroVideo');
+  var storyBars = document.querySelectorAll('#storyBars i');
+  var muteBtn = document.getElementById('muteBtn');
+  var current = 0;
+  var isMuted = true;
+
+  function setBars(index, progress){
+    storyBars.forEach(function(bar, i){
+      var span = bar.querySelector('span');
+      if(i < index){ span.style.width = '100%'; }
+      else if(i === index){ span.style.width = (progress*100)+'%'; }
+      else { span.style.width = '0%'; }
+    });
+  }
+
+  function loadStory(i, autoplay){
+    current = (i + stories.length) % stories.length;
+    heroVideo.src = stories[current].src;
+    heroVideo.muted = isMuted;
+    setBars(current, 0);
+    if(autoplay !== false){
+      heroVideo.play().catch(function(){});
+    }
+  }
+
+  heroVideo.addEventListener('timeupdate', function(){
+    if(heroVideo.duration){
+      setBars(current, heroVideo.currentTime/heroVideo.duration);
+    }
+  });
+  heroVideo.addEventListener('ended', function(){
+    loadStory(current+1);
+  });
+
+  document.getElementById('tapNext').addEventListener('click', function(){ loadStory(current+1); });
+  document.getElementById('tapPrev').addEventListener('click', function(){ loadStory(current-1); });
+
+  muteBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    isMuted = !isMuted;
+    heroVideo.muted = isMuted;
+    document.getElementById('muteSlash').style.display = isMuted ? 'block' : 'none';
+    document.getElementById('muteSlash2').style.display = isMuted ? 'block' : 'none';
+  });
+
+  loadStory(0, !reduceMotion);
+  if(reduceMotion){
+    setBars(0,0);
+  }
+
+})();
+</script>
+
+</body>
+</html>
