@@ -238,35 +238,6 @@
     background:rgba(0,0,0,0.45); padding:3px 8px; border-radius:999px;
   }
 
-  /* ---------- COVERAGE / VIEWFINDER GRID ---------- */
-  .cover-grid{
-    display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;
-  }
-  @media (max-width:880px){ .cover-grid{grid-template-columns:repeat(2,1fr);} }
-  @media (max-width:560px){ .cover-grid{grid-template-columns:1fr;} }
-  .cover-card{
-    position:relative; aspect-ratio:16/9; border-radius:var(--radius-md); overflow:hidden;
-    background:#000; cursor:pointer; border:1px solid var(--line);
-  }
-  .cover-card img{width:100%; height:100%; object-fit:cover; transition:transform .4s;}
-  .cover-card:hover img{transform:scale(1.04);}
-  .cover-card .play-overlay{
-    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-    background:linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.45));
-  }
-  .vf-corner{position:absolute; width:18px; height:18px; border-color:var(--mint); z-index:2;}
-  .vf-tl{top:10px; left:10px; border-top:2px solid var(--mint); border-left:2px solid var(--mint);}
-  .vf-tr{top:10px; right:10px; border-top:2px solid var(--mint); border-right:2px solid var(--mint);}
-  .vf-bl{bottom:10px; left:10px; border-bottom:2px solid var(--mint); border-left:2px solid var(--mint);}
-  .vf-br{bottom:10px; right:10px; border-bottom:2px solid var(--mint); border-right:2px solid var(--mint);}
-  .rec-tag{
-    position:absolute; top:10px; left:34px; z-index:2; display:flex; align-items:center; gap:6px;
-    font-family:'Space Mono',monospace; font-size:0.66rem; color:#fff; letter-spacing:0.08em;
-  }
-  .rec-dot{width:7px; height:7px; border-radius:50%; background:var(--coral); animation:blink 1.4s infinite;}
-  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.25;}}
-  .cover-card .duration-chip{right:10px; left:auto; bottom:10px;}
-
   .meta-probe{display:none;}
 
   /* ---------- CTA BAND ---------- */
@@ -313,8 +284,7 @@
     </a>
     <nav class="links">
       <a href="#servicos">Serviços</a>
-      <a href="#stories">Stories</a>
-      <a href="#coberturas">Coberturas</a>
+      <a href="#stories">Portfólio</a>
       <a href="#contato">Contato</a>
     </nav>
     <a class="nav-cta" href="https://wa.me/5511957625556" target="_blank" rel="noopener">WhatsApp</a>
@@ -415,25 +385,13 @@
   <!-- STORIES & REELS -->
   <section id="stories">
     <div class="wrap">
-      <p class="eyebrow">Stories &amp; Reels</p>
+      <p class="eyebrow">Portfólio</p>
       <h2 class="section-title">Pra rolar o dedo e parar</h2>
-      <p class="section-sub">Conteúdo vertical, feito pra tela do celular. Toca para reproduzir com som.</p>
+      <p class="section-sub">Stories, reels e cobertura de eventos — tudo em formato vertical, feito pra tela do celular. Toca para reproduzir com som.</p>
     </div>
     <div class="wrap">
       <div class="reel-row" id="reelRow">
         <!-- reel cards injected via data below -->
-      </div>
-    </div>
-  </section>
-
-  <!-- COBERTURAS -->
-  <section id="coberturas">
-    <div class="wrap">
-      <p class="eyebrow">Coberturas</p>
-      <h2 class="section-title">Eventos em movimento</h2>
-      <p class="section-sub">Festas, casamentos, feiras e inaugurações — registrados em vídeo, prontos pra contar a história toda.</p>
-      <div class="cover-grid" id="coverGrid">
-        <!-- cover cards injected via data below -->
       </div>
     </div>
   </section>
@@ -473,19 +431,12 @@
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var stories = [
-    {src:'story-01.mp4', poster:'story-01-poster.jpg', label:'Reel'},
+    {src:'story-01.mp4', poster:'story-01-poster.jpg', label:'Story'},
     {src:'story-02.mp4', poster:'story-02-poster.jpg', label:'Story'},
-    {src:'story-03.mp4', poster:'story-03-poster.jpg', label:'Reel'},
-    {src:'story-04.mp4', poster:'story-04-poster.jpg', label:'Story'}
-  ];
-
-  var covers = [
-    {src:'cover-01.mp4', poster:'cover-01-poster.jpg'},
-    {src:'cover-02.mp4', poster:'cover-02-poster.jpg'},
-    {src:'cover-03.mp4', poster:'cover-03-poster.jpg'},
-    {src:'cover-04.mp4', poster:'cover-04-poster.jpg'},
-    {src:'cover-05.mp4', poster:'cover-05-poster.jpg'},
-    {src:'cover-06.mp4', poster:'cover-06-poster.jpg'}
+    {src:'story-03.mp4', poster:'story-03-poster.jpg', label:'Story'},
+    {src:'story-04.mp4', poster:'story-04-poster.jpg', label:'Story'},
+    {src:'story-05.mp4', poster:'story-05-poster.jpg', label:'Story'},
+    {src:'story-06.mp4', poster:'story-06-poster.jpg', label:'Story'}
   ];
 
   function fmtTime(s){
@@ -508,22 +459,6 @@
       '<span class="duration-chip" data-dur>--:--</span>'+
       '<video class="meta-probe" preload="metadata" muted src="'+s.src+'"></video>';
     reelRow.appendChild(card);
-  });
-
-  // ---- build cover grid ----
-  var coverGrid = document.getElementById('coverGrid');
-  covers.forEach(function(c, i){
-    var card = document.createElement('div');
-    card.className = 'cover-card';
-    card.setAttribute('data-src', c.src);
-    card.innerHTML =
-      '<img src="'+c.poster+'" alt="Cobertura '+(i+1)+' do portfólio de Keren Emcena" loading="lazy">'+
-      '<div class="vf-corner vf-tl"></div><div class="vf-corner vf-tr"></div><div class="vf-corner vf-bl"></div><div class="vf-corner vf-br"></div>'+
-      '<span class="rec-tag"><span class="rec-dot"></span>REC</span>'+
-      '<div class="play-overlay"><span class="play-btn">'+playIconSVG+'</span></div>'+
-      '<span class="duration-chip" data-dur>--:--</span>'+
-      '<video class="meta-probe" preload="metadata" muted src="'+c.src+'"></video>';
-    coverGrid.appendChild(card);
   });
 
   // ---- duration probes ----
@@ -553,7 +488,7 @@
     lightboxVideo.load();
     document.body.style.overflow = '';
   }
-  document.querySelectorAll('.reel-card, .cover-card').forEach(function(card){
+  document.querySelectorAll('.reel-card').forEach(function(card){
     card.addEventListener('click', function(){
       openLightbox(card.getAttribute('data-src'));
     });
